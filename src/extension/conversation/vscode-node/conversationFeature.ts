@@ -17,6 +17,7 @@ import { IGitCommitMessageService } from '../../../platform/git/common/gitCommit
 import { ILogService } from '../../../platform/log/common/logService';
 import { ISettingsEditorSearchService } from '../../../platform/settingsEditor/common/settingsEditorSearchService';
 import { ITelemetryService } from '../../../platform/telemetry/common/telemetry';
+import { IToolsService } from '../../tools/common/toolsService';
 import { DeferredPromise } from '../../../util/vs/base/common/async';
 import { CancellationToken } from '../../../util/vs/base/common/cancellation';
 import { DisposableStore, IDisposable, combinedDisposable } from '../../../util/vs/base/common/lifecycle';
@@ -78,6 +79,7 @@ export class ConversationFeature implements IExtensionContribution {
 		@IVSCodeExtensionContext private readonly extensionContext: IVSCodeExtensionContext,
 		@INewWorkspacePreviewContentManager private readonly newWorkspacePreviewContentManager: INewWorkspacePreviewContentManager,
 		@ISettingsEditorSearchService private readonly settingsEditorSearchService: ISettingsEditorSearchService,
+		@IToolsService private readonly toolsService: IToolsService,
 	) {
 		this._enabled = false;
 		this._activated = false;
@@ -279,6 +281,23 @@ export class ConversationFeature implements IExtensionContribution {
 			registerNewWorkspaceIntentCommand(this.newWorkspacePreviewContentManager, this.logService, options),
 			registerGitHubPullRequestTitleAndDescriptionProvider(this.instantiationService),
 			registerSearchIntentCommand(),
+			vscode.commands.registerCommand('github.copilot.chat.simpleBrowserLauncher', async () => {
+				const tool = this.toolsService.getTool('simple_browser_launcher');
+				if (tool) {
+					const options: vscode.LanguageModelToolInvocationOptions<any> = {
+						input: {},
+						participant: '',
+						prompt: '',
+						references: [],
+						result: new vscode.LanguageModelToolResult([]),
+						tool: {
+							name: 'simple_browser_launcher',
+							description: ''
+						}
+					};
+					await tool.invoke(options, new vscode.CancellationTokenSource().token);
+				}
+			}),
 		].forEach(d => disposables.add(d));
 		return disposables;
 	}

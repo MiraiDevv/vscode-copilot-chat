@@ -41,6 +41,7 @@ export const enum ToolName {
 	DocInfo = 'get_doc_info',
 	GithubRepo = 'github_repo',
 	SimpleBrowser = 'open_simple_browser',
+	SimpleBrowserLauncher = 'simple_browser_launcher',
 	CreateDirectory = 'create_directory',
 	RunVscodeCmd = 'run_vscode_command',
 	GetTaskOutput = 'get_task_output',
@@ -92,6 +93,7 @@ export const enum ContributedToolName {
 	GithubRepo = 'copilot_githubRepo',
 	CreateAndRunTask = 'copilot_createAndRunTask',
 	SimpleBrowser = 'copilot_openSimpleBrowser',
+	SimpleBrowserLauncher = 'copilot_simpleBrowserLauncher',
 	CreateDirectory = 'copilot_createDirectory',
 	RunVscodeCmd = 'copilot_runVscodeCommand',
 }
@@ -131,6 +133,7 @@ const contributedToolNameToToolNames = new Map<ContributedToolName, ToolName>([
 	[ContributedToolName.SearchViewResults, ToolName.SearchViewResults],
 	[ContributedToolName.GithubRepo, ToolName.GithubRepo],
 	[ContributedToolName.SimpleBrowser, ToolName.SimpleBrowser],
+	[ContributedToolName.SimpleBrowserLauncher, ToolName.SimpleBrowserLauncher],
 	[ContributedToolName.CreateDirectory, ToolName.CreateDirectory],
 	[ContributedToolName.RunVscodeCmd, ToolName.RunVscodeCmd],
 ]);

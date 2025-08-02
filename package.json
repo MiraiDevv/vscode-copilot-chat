@@ -1012,6 +1012,19 @@
 						"query"
 					]
 				}
+			},
+			{
+				"name": "copilot_simpleBrowserLauncher",
+				"displayName": "%copilot.tools.simpleBrowserLauncher.name%",
+				"modelDescription": "Launches a simple browser to preview the current project. This tool will automatically install dependencies and run the development server.",
+				"userDescription": "%copilot.tools.simpleBrowserLauncher.description%",
+				"toolReferenceName": "simpleBrowserLauncher",
+				"canBeReferencedInPrompt": false,
+				"tags": [],
+				"inputSchema": {
+					"type": "object",
+					"properties": {}
+				}
 			}
 		],
 		"languageModelToolSets": [
@@ -2007,6 +2020,11 @@
 			{
 				"command": "github.copilot.chat.manageBYOK",
 				"title": "Manage Bring Your Own Key Vendor"
+			},
+			{
+				"command": "github.copilot.chat.simpleBrowserLauncher",
+				"title": "Launch Simple Browser",
+				"category": "GitHub Copilot"
 			}
 		],
 		"configuration": [

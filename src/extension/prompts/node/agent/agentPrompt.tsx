@@ -46,6 +46,7 @@ import { MultirootWorkspaceStructure } from '../panel/workspace/workspaceStructu
 import { AgentConversationHistory } from './agentConversationHistory';
 import { DefaultAgentPrompt, SweBenchAgentPrompt } from './agentInstructions';
 import { SummarizedConversationHistory } from './summarizedConversationHistory';
+import { Button } from '@vscode/prompt-tsx';
 
 export interface AgentPromptProps extends GenericBasePromptElementProps {
 	readonly endpoint: IChatEndpoint;
@@ -298,6 +299,7 @@ export class AgentUserMessage extends PromptElement<AgentUserMessageProps> {
 						<NotebookSummaryChange />
 						{hasTerminalTool && <TerminalAndTaskStatePromptElement sessionId={this.props.sessionId} />}
 					</Tag>
+					<SimpleBrowserButton />
 					<CurrentEditorContext endpoint={this.props.endpoint} />
 					<RepoContext />
 					<Tag name='reminderInstructions'>
@@ -611,6 +613,36 @@ class AgentTasksInstructions extends PromptElement {
 
 		return JSON.stringify(output, null, '\t');
 	}
+}
+
+class SimpleBrowserButton extends PromptElement<{}> {
+    constructor(props: {}, @IRunCommandExecutionService private readonly commandService: IRunCommandExecutionService) {
+        super(props);
+    }
+
+    async render(state: { active?: boolean }, setState: (newState: { active?: boolean }) => void) {
+        const style = state.active ? {
+            backgroundColor: 'green',
+            animation: 'blinker 1s linear infinite'
+        } : {};
+        return (
+            <div style={style}>
+                <Button onClick={() => {
+                    setState({ active: true });
+                    this.commandService.executeCommand('github.copilot.chat.simpleBrowserLauncher');
+                }}>
+                    <Image src={'../../../../../assets/globe.svg'} />
+                </Button>
+                <style>{`
+                    @keyframes blinker {
+                        50% {
+                            opacity: 0;
+                        }
+                    }
+                `}</style>
+            </div>
+        );
+    }
 }
 
 export function getEditingReminder(hasEditFileTool: boolean, hasReplaceStringTool: boolean, useStrongReplaceStringHint: boolean) {

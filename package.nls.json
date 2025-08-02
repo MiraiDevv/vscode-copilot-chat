@@ -272,6 +272,8 @@
 	"copilot.tools.testFailure.name": "Test Failure",
 	"copilot.tools.updateUserPreferences.name": "Update User Preferences",
 	"copilot.tools.openSimpleBrowser.name": "Open Simple Browser",
+	"copilot.tools.simpleBrowserLauncher.name": "Launch Simple Browser",
+	"copilot.tools.simpleBrowserLauncher.description": "Launches a simple browser to preview the current project.",
 	"copilot.tools.createFile.name": "Create File",
 	"copilot.tools.insertEdit.name": "Edit File",
 	"copilot.tools.replaceString.name": "Replace String in File",
